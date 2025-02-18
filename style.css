@@ -103,7 +103,7 @@ margin: 0 auto;
 padding: 0 15px;
 }
 
-#mapgps {
+#map {
   height: 950px;
   box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.09);
   border-radius: 2px;
@@ -238,7 +238,7 @@ text-decoration: underline;
 /*  */
 
 @media (max-width: 2200px) {
-  #mapgps {
+  #map {
     height: 700px;
   }
   .mapgps__legend {
@@ -264,7 +264,7 @@ text-decoration: underline;
   }
 }
 @media (max-width: 1600px) {
-  #mapgps {
+  #map {
     height: 600px;
   }
   .mapgps__legend {
@@ -277,7 +277,7 @@ text-decoration: underline;
   }
 }
 @media (max-width: 1200px) {
-  #mapgps {
+  #map {
     height: 550px;
   }
   .mapgps__legend {
@@ -311,7 +311,7 @@ text-decoration: underline;
 }
 
 @media (max-width: 767px) {
-  #mapgps {
+  #map {
     height: 450px;
   }
   .mapgps__legend input[type="checkbox"] {
