@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Map with Multiple GeoJSON LineString Layers</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Проверка хоста
+        var isAllowedHost = window.location.hostname === 'github.com';
+        console.log('Current host:', window.location.hostname);
+        console.log('Is allowed host:', isAllowedHost);
+
+        // Функция для изменения name, если хост не разрешен
+        function checkAndModifyGeoJson(data) {
+            if (!isAllowedHost) {
+                console.log('Modifying GeoJSON data...');
+                if (data.features && Array.isArray(data.features)) {
+                    data.features.forEach(function(feature) {
+                        feature.properties.name = 'эта карта украдена у МДУ';
+                        console.log('Modified feature:', feature);
+                    });
+                }
+            }
+        }
+
+        // Примеры GeoJSON данных с несколькими слоями LineString
+        var geoJsonData1 = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 1 - Line 1" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5168, 64.5393], [40.5268, 64.5393]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 1 - Line 2" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5268, 64.5393], [40.5368, 64.5393]]
+                    }
+                }
+            ]
+        };
+
+        var geoJsonData2 = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 2 - Line 1" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5168, 64.5393], [40.5268, 64.5493]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 2 - Line 2" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5268, 64.5493], [40.5368, 64.5493]]
+                    }
+                }
+            ]
+        };
+
+        var geoJsonData3 = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 3 - Line 1" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5268, 64.5393], [40.5368, 64.5393]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 3 - Line 2" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5368, 64.5393], [40.5468, 64.5393]]
+                    }
+                }
+            ]
+        };
+
+        var geoJsonData4 = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 4 - Line 1" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5368, 64.5393], [40.5468, 64.5393]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 4 - Line 2" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5468, 64.5393], [40.5568, 64.5393]]
+                    }
+                }
+            ]
+        };
+
+        var geoJsonData5 = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 5 - Line 1" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5468, 64.5393], [40.5568, 64.5393]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Layer 5 - Line 2" },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[40.5568, 64.5393], [40.5668, 64.5393]]
+                    }
+                }
+            ]
+        };
+
+        // Проверка и модификация GeoJSON данных
+        checkAndModifyGeoJson(geoJsonData1);
+        checkAndModifyGeoJson(geoJsonData2);
+        checkAndModifyGeoJson(geoJsonData3);
+        checkAndModifyGeoJson(geoJsonData4);
+        checkAndModifyGeoJson(geoJsonData5);
+
+        console.log('GeoJSON Data 1:', geoJsonData1);
+        console.log('GeoJSON Data 2:', geoJsonData2);
+        console.log('GeoJSON Data 3:', geoJsonData3);
+        console.log('GeoJSON Data 4:', geoJsonData4);
+        console.log('GeoJSON Data 5:', geoJsonData5);
+
+        // Создаем карту с центром в Архангельске
+        var map = L.map('map').setView([64.5393, 40.5168], 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Функция для создания слоя и добавления его на карту
+        function addLayer(data, color) {
+            return L.geoJson(data, {
+                style: { color: color },
+                onEachFeature: function (feature, layer) {
+                    layer.on('click', function (e) {
+                        var popup = L.popup()
+                            .setLatLng(e.latlng)
+                            .setContent(feature.properties.name)
+                            .openOn(map);
+                    });
+                }
+            }).addTo(map);
+        }
+
+        // Создание и добавление слоев на карту
+        var layers = {
+            layer1: addLayer(geoJsonData1, 'red'),
+            layer2: addLayer(geoJsonData2, 'blue'),
+            layer3: addLayer(geoJsonData3, 'green'),
+            layer4: addLayer(geoJsonData4, 'purple'),
+            layer5: addLayer(geoJsonData5, 'orange')
+        };
+    </script>
+</body>
+</html>
