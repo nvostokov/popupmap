@@ -407,6 +407,7 @@ text-decoration: underline;
   }
 }
 
+/*допстили*/
         #controls { margin: 10px; }
         #search-container { margin: 20px 10px; position: relative; }
         #search-results {
@@ -416,7 +417,7 @@ text-decoration: underline;
             background-color: #f9f9f9;
             position: absolute;
             z-index: 1000;
-            width: 50%;
+            width: 85%;
             font-weight: 700;
         }
         #search-results div {
@@ -586,9 +587,10 @@ text-decoration: underline;
 }
 @media (max-width:479px){
     .map__info{
-        top:100px;
-        left:-40px;
-        transform:scale(0.5);
+        top:5px;
+        left: 50px;
+        transform:scale(0.8);
 
     }
 }	
+
