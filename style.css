@@ -387,7 +387,7 @@ text-decoration: underline;
   font-size: 10px;
 }
 .mapgps__weather-min {
-  top: -25px;
+  top: -15px;
   right: -5px;
   transform: scale(0.4);
   -webkit-transform: scale(0.4);
