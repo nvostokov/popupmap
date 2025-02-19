@@ -311,6 +311,9 @@ text-decoration: underline;
 }
 
 @media (max-width: 767px) {
+  .leaflet-container {
+    line-height: 1;
+  }
   #map {
     height: 450px;
   }
@@ -338,7 +341,7 @@ text-decoration: underline;
     left: 20px;
     padding: 5px 10px;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 10px;
 }
   .mapgps__legend div {
     padding-bottom: 5px;
